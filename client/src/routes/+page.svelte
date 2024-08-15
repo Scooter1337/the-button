@@ -10,6 +10,7 @@
 	import { nanoid } from 'nanoid';
 	import { cn } from '$lib/utils';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import { HOST, PORT } from '../../../static';
 
 	let id = $state('');
 	let connected = $state<undefined | boolean>(undefined);
@@ -72,7 +73,7 @@
 		}
 
 		connected = false;
-		socket = io('http://localhost:3003', {
+		socket = io(HOST + PORT, {
 			query: {
 				room: room,
 				name: name,

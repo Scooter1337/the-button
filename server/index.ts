@@ -3,9 +3,9 @@ import { createServer } from 'node:http';
 import { Server } from 'socket.io';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { HOST, PORT } from '../static';
 
-const PORT = 3003;
-const HOST = '127.0.0.1';
+
 
 const app = express();
 const server = createServer(app);
