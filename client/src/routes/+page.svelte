@@ -173,26 +173,28 @@
 <div class="h-[100lvh] w-[100vw]">
 	{#if (connected && !display_mode) || (connected && display_mode && pseudo_display_mode)}
 		<div class="flex h-[100lvh] w-full grid-cols-3 flex-col gap-4 p-4 2xl:grid">
-			<button
-				class="bg-muted col-span-2 flex aspect-square w-full items-center justify-center rounded-2xl shadow-2xl"
-				onclick={click_button}
-				disabled={room_pressed}
-			>
-				{#if room_pressed}
-					<div
-						class="pointer-events-none flex aspect-square w-[70vw] items-center justify-center rounded-full bg-[grey] text-3xl font-bold shadow-2xl"
-					>
-						PRESSED <br /> by <br />
-						{room_who_pressed!.name}
-					</div>
-				{:else}
-					<div
-						class="flex aspect-square w-[70vw] items-center justify-center rounded-full bg-[red] text-5xl font-bold shadow-2xl"
-					>
-						PRESS ME
-					</div>
-				{/if}
-			</button>
+			<div class="col-span-2 flex items-center justify-center">
+				<button
+					class="bg-muted col-span-2 flex aspect-square w-[min(100%,600px)] items-center justify-center rounded-2xl shadow-2xl"
+					onclick={click_button}
+					disabled={room_pressed}
+				>
+					{#if room_pressed}
+						<div
+							class="pointer-events-none flex aspect-square w-[70vw] items-center justify-center rounded-full bg-[grey] text-3xl font-bold shadow-2xl"
+						>
+							PRESSED <br /> by <br />
+							{room_who_pressed!.name}
+						</div>
+					{:else}
+						<div
+							class="flex aspect-square w-[min(70vw,400px)] items-center justify-center rounded-full bg-[red] text-5xl font-bold shadow-2xl"
+						>
+							PRESS ME
+						</div>
+					{/if}
+				</button>
+			</div>
 			<Card.Root class="overflow-y-auto">
 				<Card.Header>
 					<Card.Title class="text-2xl">Group {curr_room}</Card.Title>
@@ -238,14 +240,22 @@
 							disabled={!room_pressed}>Reset</Button
 						>
 					{/if}
-					{#if room_owner && room_owner.id === id}
+					{#if display_mode}
+						<Button variant="secondary" class="w-full" onclick={() => set_display_only(false)}
+							>Display Mode</Button
+						>
+					{/if}
+					{#if !display_mode}
 						<Button variant="secondary" class="w-full" onclick={() => set_display_only(true)}
 							>Display Mode</Button
 						>
 					{/if}
-					{#if room_owner && room_owner.id !== id}
-						<Button variant="secondary" class="w-full" onclick={() => set_display_only(true)}
-							>Display Mode</Button
+					{#if room_owner && room_owner.id === id}
+						<Button
+							variant="secondary"
+							class="w-full"
+							onclick={() => (pseudo_display_mode = !pseudo_display_mode)}
+							>Toggle Pseudo ({pseudo_display_mode})</Button
 						>
 					{/if}
 				</Card.Footer>
