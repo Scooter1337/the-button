@@ -4,6 +4,9 @@ import { Server } from 'socket.io';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
+const PORT = 3003;
+const HOST = '127.0.0.1';
+
 const app = express();
 const server = createServer(app);
 const io = new Server(server, { cors: { origin: '*' } }) as Server & { on: any };
@@ -203,6 +206,6 @@ io.engine.on("connection_error", (err) => {
 
 
 
-server.listen(3003, "127.0.0.1", () => {
-    console.log('server running at http://localhost:3003');
+server.listen(PORT, HOST, () => {
+    console.log('server running at '+HOST+':'+PORT);
 });
